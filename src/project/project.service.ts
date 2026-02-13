@@ -1,16 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  CreateProjectDto,
-  ProjectItemDto,
-  UpdateProjectDto,
-} from './dto/project.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { ProjectItem } from './interfaces/project.interface';
 
 @Injectable()
 export class ProjectService {
   constructor(private readonly configService: ConfigService) {}
 
-  private projects: ProjectItemDto[] = [
+  private projects: ProjectItem[] = [
     {
       id: 1,
       name: 'Personal',
@@ -36,7 +34,7 @@ export class ProjectService {
     }
   }
 
-  getProjectById(id: number): ProjectItemDto {
+  getProjectById(id: number): ProjectItem {
     const project = this.projects.find((p) => p.id === id);
     if (!project) {
       throw new NotFoundException(`Project with id of ${id} not found`);
@@ -44,14 +42,14 @@ export class ProjectService {
     return project;
   }
 
-  createProject(payload: CreateProjectDto): ProjectItemDto {
+  createProject(payload: CreateProjectDto): ProjectItem {
     const newId = this.projects[this.projects.length - 1].id + 1;
     const newProject = { id: newId, createdAt: new Date(), ...payload };
     this.projects.push(newProject);
     return newProject;
   }
 
-  updateProject(id: number, payload: UpdateProjectDto): ProjectItemDto {
+  updateProject(id: number, payload: UpdateProjectDto): ProjectItem {
     const idx = this.projects.indexOf(this.getProjectById(id));
     this.projects[idx] = {
       ...this.projects[idx],
