@@ -12,9 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { ProjectItem } from './project.interface';
 import { CreateProjectDto, UpdateProjectDto } from './dto/project.dto';
-import { STATUS_CODES } from 'http';
 
 @Controller('projects')
 export class ProjectController {
