@@ -4,12 +4,12 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { ConfigService } from '@nestjs/config';
 import { projectSchema } from '../project/project.schema';
 
-export const DATABASE_TOKEN = 'DATABASE_CONNECTION';
+export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
 
 @Module({
   providers: [
     {
-      provide: DATABASE_TOKEN,
+      provide: DATABASE_CONNECTION,
       useFactory: (configService: ConfigService) => {
         const pool = new Pool({
           connectionString: configService.get<string>('DB_URL'),
@@ -24,5 +24,6 @@ export const DATABASE_TOKEN = 'DATABASE_CONNECTION';
       inject: [ConfigService],
     },
   ],
+  exports: [DATABASE_CONNECTION]
 })
 export class DatabaseModule {}
