@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 export class EnvironmentVariables {
   @IsString()
@@ -7,6 +7,7 @@ export class EnvironmentVariables {
   @IsEnum([8000])
   PORT: number;
 
+  @IsNotEmpty()
   @IsString()
-  HOST: string;
+  DB_URL: string;
 }
