@@ -1,4 +1,6 @@
+import { relations } from 'drizzle-orm';
 import { pgTable, serial, varchar, timestamp } from 'drizzle-orm/pg-core';
+import { todoSchema } from 'src/todo/todo.schema';
 
 export const projectSchema = pgTable('projects', {
   id: serial('id').primaryKey(),
@@ -6,3 +8,7 @@ export const projectSchema = pgTable('projects', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at'),
 });
+
+export const projectRelations = relations(projectSchema, ({ many }) => ({
+  todos: many(todoSchema),
+}));
