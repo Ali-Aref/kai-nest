@@ -5,6 +5,7 @@ import { ProjectModule } from './project/project.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/config.validation';
 import { DatabaseModule } from './database/database.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseModule } from './database/database.module';
     }),
     ProjectModule,
     DatabaseModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { ProjectItem } from './interfaces/project.interface';
 import { DATABASE_CONNECTION } from 'src/database/database.constants';
 import type { Db } from 'src/database/database.schema';
 import { eq, ilike } from 'drizzle-orm';
@@ -13,8 +12,6 @@ export class ProjectService {
     @Inject(DATABASE_CONNECTION)
     private readonly db: Db,
   ) {}
-
-  private projects: ProjectItem[] = [];
 
   getProjectList(search: string) {
     if (search) return this.searchProject(search);
@@ -52,7 +49,10 @@ export class ProjectService {
   async updateProject(id: number, payload: UpdateProjectDto) {
     const [project] = await this.db
       .update(projectSchema)
-      .set(payload)
+      .set({
+        ...payload,
+        updatedAt: new Date(),
+      })
       .where(eq(projectSchema.id, id))
       .returning();
 
