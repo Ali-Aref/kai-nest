@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsNotEmpty,
   IsNumber,
@@ -22,4 +23,9 @@ export class CreateTodoDto {
   @IsOptional()
   @IsBoolean()
   isComplete?: boolean;
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  tags?: number[];
 }
