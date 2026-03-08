@@ -36,11 +36,12 @@ export class ProjectService {
     return project;
   }
 
-  async createProject(payload: CreateProjectDto) {
+  async createProject(payload: CreateProjectDto, ownerId: number) {
     const [newProject] = await this.db
       .insert(projectSchema)
       .values({
         name: payload.name,
+        ownerId,
       })
       .returning();
     return newProject;

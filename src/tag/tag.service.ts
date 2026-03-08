@@ -13,10 +13,13 @@ export class TagService {
     private readonly db: Db,
   ) {}
 
-  async create(createTagDto: CreateTagDto) {
+  async create(createTagDto: CreateTagDto, ownerId: number) {
     const [tag] = await this.db
       .insert(tagSchema)
-      .values(createTagDto)
+      .values({
+        ...createTagDto,
+        ownerId,
+      })
       .returning();
     return tag;
   }

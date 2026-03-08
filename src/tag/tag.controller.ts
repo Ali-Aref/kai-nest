@@ -20,7 +20,8 @@ export class TagController {
 
   @Post()
   create(@Body() createTagDto: CreateTagDto) {
-    return this.tagService.create(createTagDto);
+    // API: FIX the owner id here
+    return this.tagService.create(createTagDto, 1);
   }
 
   @Get()

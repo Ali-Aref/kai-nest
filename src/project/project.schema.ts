@@ -7,7 +7,7 @@ import { userSchema } from 'src/user/user.schema';
 export const projectSchema = pgTable('project', {
   id: serial('id').primaryKey(),
   name: varchar('name').notNull(),
-  owerId: integer('owner_id')
+  ownerId: integer('owner_id')
     .notNull()
     .references(() => userSchema.id),
   createdAt: timestamp('created_at').defaultNow(),
@@ -19,7 +19,7 @@ export const projectRelations = relations(
   ({ many, one }) => ({
     todos: many(todoSchema),
     owner: one(userSchema, {
-      fields: [projectSchema.owerId],
+      fields: [projectSchema.ownerId],
       references: [userSchema.id],
     }),
   }),

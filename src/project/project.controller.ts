@@ -32,7 +32,8 @@ export class ProjectController {
 
   @Post()
   createProject(@Body() payload: CreateProjectDto) {
-    return this.projectService.createProject(payload);
+    // API: fix static owner id
+    return this.projectService.createProject(payload, 1);
   }
 
   @Patch(':id')
