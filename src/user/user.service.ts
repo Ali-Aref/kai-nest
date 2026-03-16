@@ -21,4 +21,10 @@ export class UserService {
     }
     return user;
   }
+
+  async findUserByEmail(email: string) {
+    return await this.db.query.userSchema.findFirst({
+      where: eq(userSchema.email, email),
+    });
+  }
 }
