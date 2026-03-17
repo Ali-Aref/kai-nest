@@ -10,4 +10,12 @@ export class EnvironmentVariables {
   @IsNotEmpty()
   @IsString()
   DB_URL: string;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_ACCESS_SECRET: string;
+
+  @IsNotEmpty()
+  @IsString()
+  JWT_REFRESH_SECRET: string;
 }
